@@ -21,9 +21,6 @@ router.post("/remove-cart-item", middleware.authenticateUser,controller.removeCa
 //order-apis
 router.get("/order-confirm",middleware.authenticateUser,controller.orderConfirm);
 router.get("/get-orders", middleware.authenticateUser, controller.getOrders);
-router.get("/get-orders", middleware.authenticateUser, controller.getOrders);
-
-router.post("/get-single-order-data",middleware.authenticateUser,controller.getOderData); //this one I have removed
 
 router.post("/get-single-order-data",middleware.authenticateUser,controller.getOderData); //this one I have removed
 
