@@ -1,16 +1,59 @@
 const manager = require("../manager/manager"),
-      dashboard = require("../manager/dashboard")
+      dashboard = require("../manager/dashboard");
 
-
-let getCartItems = async (req, res, next) => {
+let creatProducts = async (req, res, next) => {
   return manager
-    .getCartItems(req.id)
+    .creatProducts(req)
     .then((data) => {
       let result = {
         status: 200,
-        cartData: data.cartData,
-        count: data.count,
-        seerchData: data.seerchData,
+        data: data,
+        allProducts: data.totalData,
+        duplicates: data.duplicate,
+        newData: data.newData,
+      };
+      return res.json(result);
+    })
+    .catch(next);
+};
+
+let signup = async (req, res, next) => {
+  return manager
+    .signup(req)
+    .then((data) => {
+      let result = {
+        status: 200,
+        data: data,
+        token: data.token,
+      };
+      return res.json(result);
+    })
+    .catch(next);
+};
+
+let login = async (req, res, next) => {
+  return manager
+    .login(req.body)
+    .then((data) => {
+      let result = {
+        status: 200,
+        token: data.authToken,
+        user:data.user,
+        isAdmin:data.admin,
+      
+      };
+      return res.json(result);
+    })
+    .catch(next);
+};
+
+let getUserDetail  = async (req, res, next) => {
+  return manager
+    .getUserDetail(req.id)
+    .then((data) => {
+      let result = {
+        status: 200,
+        userData: data.user,
       };
       return res.json(result);
     })
@@ -31,23 +74,6 @@ let getProductList = async (req, res, next) => {
     .catch(next);
 };
 
-
-let creatProducts = async (req, res, next) => {
-  return manager
-    .creatProducts(req)
-    .then((data) => {
-      let result = {
-        status: 200,
-        data: data,
-        allProducts: data.totalData,
-        duplicates: data.duplicate,
-        newData: data.newData,
-      };
-      return res.json(result);
-    })
-    .catch(next);
-};
-
 let addToCart = async (req, res, next) => {
   return manager
     .addToCart(req.body, req.id)
@@ -61,6 +87,22 @@ let addToCart = async (req, res, next) => {
     })
     .catch(next);
 };
+
+let getCartItems = async (req, res, next) => {
+  return manager
+    .getCartItems(req.id)
+    .then((data) => {
+      let result = {
+        status: 200,
+        cartData: data.cartData,
+        count: data.count,
+        seerchData: data.seerchData,
+      };
+      return res.json(result);
+    })
+    .catch(next);
+};
+
 let removeCartItem = async (req, res, next) => {
   return manager
     .removeCartItem(req.body, req.id)
@@ -106,74 +148,6 @@ let getOrders = async (req, res, next) => {
     .catch(next);
 };
 
-let getOderData = async (req, res, next) => {
-  console.log(req.body);
-  return manager
-    .getOderData(req.body, req.id)
-    .then((data) => {
-      let result = {
-        status: 200,
-        singleData: data.cartData,
-      };
-      return res.json(result);
-    })
-    .catch(next);
-};
-
-let getStock = async (req, res, next) => {
-  return manager
-    .getStock()
-    .then((data) => {
-      let result = {
-        status: 200,
-        stock: data.getData,
-      };
-      return res.json(result);
-    })
-    .catch(next);
-};
-let signup = async (req, res, next) => {
-  return manager
-    .signup(req)
-    .then((data) => {
-      let result = {
-        status: 200,
-        data: data,
-        token: data.token,
-      };
-      return res.json(result);
-    })
-    .catch(next);
-};
-
-let login = async (req, res, next) => {
-  return manager
-    .login(req.body)
-    .then((data) => {
-      let result = {
-        status: 200,
-        token: data.authToken,
-        user:data.user,
-        isAdmin:data.admin,
-      
-      };
-      return res.json(result);
-    })
-    .catch(next);
-};
-let getUserDetail  = async (req, res, next) => {
-  return manager
-    .getUserDetail(req.id)
-    .then((data) => {
-      let result = {
-        status: 200,
-        userData: data.user,
-      };
-      return res.json(result);
-    })
-    .catch(next);
-};
-
 let getAllDetails = async (req, res, next) => {
   return dashboard
     .getAllDetails(req.id,req.body)
@@ -190,19 +164,16 @@ let getAllDetails = async (req, res, next) => {
     .catch(next);
 };
 
-
 module.exports = {
-  getCartItems: getCartItems,
-  getProductList: getProductList,
   creatProducts: creatProducts,
+  signup: signup,
+  login: login,
+  getUserDetail:getUserDetail,
+  getProductList: getProductList,
   addToCart: addToCart,
+  getCartItems: getCartItems,
   removeCartItem: removeCartItem,
   orderConfirm: orderConfirm,
   getOrders: getOrders,
-  signup: signup,
-  login: login,
-  getStock: getStock,
-  getOderData: getOderData,
-  getUserDetail:getUserDetail,
   getAllDetails:getAllDetails
 };

@@ -2,16 +2,10 @@ const ProductList = require("../model/producatslist"),
       Orders = require("../model/orders"),
       BadRequestError = require("../error-hndlers/badRequesterror"),
       csv = require("csvtojson"),
-      fs = require("fs"),
-      { parse } = require("csv-parse"),
-      Admin = require("../model/admin"),
       AddCart = require("../model/add-cart"),
       Register = require("../model/register"),
       Auth = require("../model/auth"),
-      md5 = require("md5"),
-      SequelizeObj = require("sequelize"),
-      CustomQueryModel = require('../model/custom_qurey'),
-      moment = require("moment");
+      md5 = require("md5");
 
 let creatProducts = async (req) => {
   let fileName = req.file.filename;
@@ -179,219 +173,17 @@ let getOrders = async (id) => {
    let getData = await Orders.findAll({ where: { userId: id }, raw: true });
   let cartData = await AddCart.findAll({ where: { userId: id},raw: true,});
   return { getData,cartData }
-  // let find = await Register.findOne({ where: { id: id }, raw: true });
-  
-//   if(find.isAdmin)
-//   {
-//     let todayStartDate = new Date(moment().startOf('date').format('YYYY-MM-DD hh:mm:ss'));
-//     let totalBankTransferRequestToday = await Register.count({
-//         where: { createdAt: { $gte: todayStartDate } },
-//         raw: true
-//     })
-//     console.log(totalBankTransferRequestToday);
-//     // let usersList = await Register.findAll({where:{isAdmin:{$not:1}},raw:true})
-//     // console.log(usersList.filter(el => console.log(moment(el.createdAt).format('YYYY-MM-DD'))));
-//     // console.log(usersList.length,"TOTAL USERS");
-//   //   let SearchSql = 
-//   //   "SELECT orders.id,orders.total,orders.orderNumber,orders.status,orders.createdAt,addcart.productId,addcart.price,addcart.quantity,addcart.orderId,addcart.productName,register.name,register.email,register.mobile FROM orders INNER JOIN addcart ON orders.id = addcart.orderId INNER JOIN register ON orders.userId= register.id";
-//   //   let allDetails = await CustomQueryModel.query(SearchSql, {
-//   //   type: SequelizeObj.QueryTypes.SELECT,
-//   //   raw: true,
-//   // });
-//   let admin = true
-  
-//   // let totalOrders = await Orders.count()
-//   // console.log(totalOrders);
-//   return {allDetails,admin,usersList,totalOrders}
-//   }
-//  else{
- 
-//  }
-};
-
-//no more use
-let getOderData = async (body, id) => {
-  console.log("order", body);
-  let cartData = await AddCart.findAll({
-    where: { userId: id, orderId: body.orderId },
-    raw: true,
-  });
-  return { cartData };
-};
-
-//no more use
-let getStock = async () => {
-  let getData = await ProductList.findAll({ raw: true });
-  return { getData };
 };
 
 module.exports = {
-  getOderData,
-  getStock,
-  signup,
-  login,
-  getCartItems,
-  getProductList,
-  creatProducts,
-  addToCart,
-  removeCartItem,
-  orderConfirm,
-  getOrders,
-  getUserDetail
+  creatProducts:creatProducts,
+  signup:signup,
+  login:login,
+  getUserDetail:getUserDetail,
+  getProductList:getProductList,
+  addToCart:addToCart,
+  getCartItems:getCartItems,
+  removeCartItem:removeCartItem,
+  orderConfirm:orderConfirm,
+  getOrders:getOrders,
 };
-
-
-// let fileName = req.file.filename;
-// console.log(fileName);
-// const admin = new Admin({
-//   name: "sachin",
-//   email: "sacin@123",
-// });
-// // admin.save();
-// const csvFilePath = `${__dirname}/../uploads/${fileName}`;
-// csv()
-//   .fromFile(csvFilePath)
-//   .then((jsonObj) => {
-//     console.log(jsonObj);
-//     const admin = new Admin({
-//       name: "sachin",
-//       email: "sacin@123",
-//     });
-//     Admin.insertMany(jsonObj)
-//       .then(function () {
-//         console.log("Data inserted"); // Success
-//       })
-//       .catch(function (error) {
-//         console.log(error); // Failure
-//       });
-//     jsonObj.forEach((el) => {
-//       let find = Admin.find({ name: el.name, email: el.name });
-//       if (find._conditions) {
-//         console.log("YESS", find);
-//       }
-//     });
-//       // let duplicate = 0;
-// // let newEntries = 0;
-// // for (i = 0; i < jsonArray.length; i++) {
-// //   let el = jsonArray[i];
-// //   let find = await User.findOne({
-// //     where: { name: el.name, email: el.email },
-// //   });
-// //   if (find) {
-// //     duplicate = duplicate + 1;
-// //   }
-// //   if (!find) {
-// //     newEntries = newEntries + 1;
-// //     let data = {
-// //       name: jsonArray[i].name,
-// //       email: jsonArray[i].email,
-// //     };
-// //     User.create(data);
-// //   }
-//   });
-
-// let limit = body.limit ? parseInt(body.limit) : 3;
-// let page = body.page || 1;
-// let offset = (page - 1) * limit;
-// let getTotalUser = await User.findAndCountAll({ raw: true });
-// let count = getTotalUser.count;
-// // Math.ceil(getTotalUser.count / limit);
-// if (body.searchText) {
-//   let seerchData = await User.findAll({
-//     where: { name: body.searchText },
-//     raw: true,
-//     limit,
-//     offset,
-//   });
-//   return { seerchData };
-// }
-
-// if (body.sort && body.page) {
-//   let allData = await User.findAll({
-//     raw: true,
-//     limit,
-//     offset,
-//     order: [["id", "DESC"]],
-//     attributes: ["name", "id", "email"],
-//   });
-//   return { allData, count };
-// }
-
-// if (body.page) {
-//   let allData = await User.findAll({
-//     raw: true,
-//     limit,
-//     offset,
-//   });
-//   return { allData, count };
-// }
-// User.findAll();
-// fs.createReadStream(`${__dirname}/../uploads/${fileName}`)
-//   .pipe(parse({ delimiter: ",", from_line: 2 }))
-//   .on("data", function (row) {
-//     arrayData.push(row);
-//     return User.findOrCreate({
-//       where: {
-//         name: row[0],
-//         email: row[1],
-//       },
-//     });
-//   })
-//   .on("end", function () {
-//     console.log("done", arrayData.length);
-//     arrayData.length;
-//   })
-//   .emit(tt);
-// console.log(tt, "ttttttttttt");
-// let getProductCount = await User.findAndCountAll({ raw: true });
-// console.log(getProductCount.count);
-// const name =  jsonObj;
-// const email = jsonObj.email;
-// console.log(jsonObj);
-// User.findOrCreate({
-//   where: {
-//     name: name,
-//     email: email,
-//   },
-// });
-
-// Async / await usage
-
-
-// let creatProducts = async (req) => {
-//   let fileName = req.file.filename;
-//   console.log(fileName);
-//   const csvFilePath = `$ {__dirname}/../uploads/${fileName}`;
-//   csv()
-//     .fromFile(csvFilePath)
-//     .then((jsonObj) => {
-//       jsonObj;
-//       ProductList.bulkCreate(jsonObj);
-//     });
-  // const jsonArray = await csv().fromFile(csvFilePath);
-  // let duplicate = 0;
-  // let newEntries = 0;
-  // for (i = 0; i < jsonArray.length; i++) {
-  //   let el = jsonArray[i];
-  //   let find = await ProductList.findOne({
-  //     where: { name: el.name },
-  //   });
-  //   if (find) {
-  //     console.log("EXST");
-  //     duplicate = duplicate + 1;
-  //   }
-  //   if (!find) {
-  //     newEntries = newEntries + 1;
-  //     let data = {
-  //       name: jsonArray[i].name,
-  //       productId: jsonArray[i].productId,
-  //       price: jsonArray[i].price,
-  //       brand: jsonArray[i].brand,
-  //       color: jsonArray[i].color,
-  //       image: jsonArray[i].image,
-  //     };
-  //     ProductList.create(data);
-  //   }
-  // }
-//   return { newEntries, total: await ProductList.count(), duplicate };
-// };

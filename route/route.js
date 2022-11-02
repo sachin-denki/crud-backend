@@ -6,8 +6,6 @@ const middleware = require("../middleware/middleware");
 const fileuploader = require('../multer/fileuploader');
 // CSV-file-uploader
 router.post("/porduct-list",fileUploadHelper.uploadUserProfileImage.single("producatList"),controller.creatProducts);
-
-router.get("/get-stock-data", controller.getStock);//this one I have removed
 // singup-login
 router.post("/signup",fileuploader.uploadUserProfileImage.single('image'),controller.signup);
 router.post("/login", controller.login);
@@ -21,9 +19,6 @@ router.post("/remove-cart-item", middleware.authenticateUser,controller.removeCa
 //order-apis
 router.get("/order-confirm",middleware.authenticateUser,controller.orderConfirm);
 router.get("/get-orders", middleware.authenticateUser, controller.getOrders);
-
-router.post("/get-single-order-data",middleware.authenticateUser,controller.getOderData); //this one I have removed
-
 router.post("/admin-dashboard", middleware.authenticateUser, controller.getAllDetails);
 
 module.exports = router;
