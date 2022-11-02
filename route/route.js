@@ -24,6 +24,7 @@ router.get("/get-orders", middleware.authenticateUser, controller.getOrders);
 
 router.post("/get-single-order-data",middleware.authenticateUser,controller.getOderData); //this one I have removed
 
+router.post("/get-single-order-data",middleware.authenticateUser,controller.getOderData); //this one I have removed
 
 router.post("/admin-dashboard", middleware.authenticateUser, controller.getAllDetails);
 
