@@ -1,0 +1,46 @@
+name,productId,price,brand,color
+oppo 1,111,1000,oppo,black
+apple,112,2000,apple,white
+samsung,113,1500,samsung,red
+realme,114,1600,realme,greeen
+redmi,115,1400,redmi,black
+vivo,116,1300,vivo,white
+iq,117,1200,iq,red
+one plus,118,1700,one plus,greeen
+lenovo,119,1500,lenovo,black
+oppo2,120,1000,oppo,white
+oppo3,121,2900,oppo,red
+oppo4,122,4550,oppo,greeen
+oppo5,123,4080,oppo,black
+0pp0 6,124,5060,oppo,white
+vivo-1,125,6800,vivo,red
+vivo-2,126,7800,vivo,greeen
+vivo-3,127,7600,vivo,black
+vivo-4,128,6800,vivo,white
+vivo-5,129,8070,vivo,red
+vivo-6,130,9070,vivo,greeen
+vivo-7,131,8700,vivo,black
+lenovo-1,132,1600,lenovo,white
+lenovo-2,133,1570,lenovo,red
+lenovo-3,135,1570,lenovo,greeen
+lenovo-4,136,1590,lenovo,black
+lenovo-5,137,3400,lenovo,white
+lenovo-6,138,4500,lenovo,red
+lenovo-7,139,1600,lenovo,greeen
+apple-1,140,20690,apple,black
+apple-2,141,55090,apple,white
+apple-3,142,62090,apple,red
+apple-4,143,76690,apple,greeen
+apple-5,144,66090,apple,black
+apple-6,145,20907,apple,white
+apple-7,146,26690,apple,red
+apple-8,147,26690,apple,greeen
+samsung-1,148,15300,samsung,black
+samsung-2,149,15040,samsung,white
+samsung-3,150,66500,samsung,red
+samsung-4,151,44500,samsung,greeen
+samsung-5,152,55500,samsung,black
+samsung-6,153,15070,samsung,white
+samsung-7,154,15600,samsung,red
+samsung-8,155,15020,samsung,greeen
+samsung-9,156,12233,samsung,black
