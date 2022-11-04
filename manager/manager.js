@@ -5,7 +5,6 @@ const ProductList = require("../model/producatslist"),
       AddCart = require("../model/add-cart"),
       Register = require("../model/register"),
       Auth = require("../model/auth"),
-      Blob = require('buffer')
       md5 = require("md5");
 
 let creatProducts = async (req) => {
@@ -86,28 +85,6 @@ let getUserDetail = async(id) => {
 }
 
 let getProductList = async (body) => {
-  const fs = require('fs');
-
-const res = {
-  "title": "Places Search Box",
-  "tags": "sd",
-  "pictures": {
-    "rawFile": {
-      "path": "Screenshot 2020-03-05 at 12.05.55 PM.png"
-    },
-    "banner": "blob:http://localhost:3001/3b3dead6-bee0-4a9c-a0b3-28a560ee1558"
-  }
-}
-
-const myUrl = res.pictures.banner;
-
-
-fs.writeFile("/uploads", myUrl, function(err) {
-    if(err) {
-        return console.log(err);
-    }
-    console.log("The file was saved!");
-}); 
   let findData = {};
   if (body.search) { findData = { category: { $like: `%${body.search}%` }}}
   if(body.price) {  
